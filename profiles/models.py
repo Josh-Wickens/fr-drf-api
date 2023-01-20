@@ -18,7 +18,7 @@ class Profile(models.Model):
     fan_or_club = models.CharField(
         choices=CLUB_OR_FAN_CHOICES, max_length=10, default=FAN,)
     image = models.ImageField(
-        upload_to='images/', default='../ball-flying_oncxm2')
+        upload_to='images/', default='../ball-flying_xiyzfz')
     official = models.BooleanField(default=False)
 
     class Meta:
