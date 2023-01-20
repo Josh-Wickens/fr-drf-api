@@ -7,7 +7,8 @@ class TopicsSerializer(serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
-    topic_choice = serializers.ReadOnlyField(source='owner.id.topic')
+    official = serializers.ReadOnlyField(source='owner.profile.official')
+    fan_or_club = serializers.ReadOnlyField(source='owner.profile.fan_or_club')
 
     def validate_image(self, value):
         if value.size > 2 * 1024 * 1024:
@@ -31,5 +32,5 @@ class TopicsSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'owner', 'is_owner', 'profile_id',
             'profile_image', 'created_at', 'updated_at',
-            'question', 'image', 'topic',
+            'question', 'image', 'topic', 'official', 'fan_or_club'
         ]
