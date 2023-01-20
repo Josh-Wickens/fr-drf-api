@@ -20,6 +20,7 @@ class Profile(models.Model):
     image = models.ImageField(
         upload_to='images/', default='../ball-flying_xiyzfz')
     official = models.BooleanField(default=False)
+    support = models.CharField(max_length=30, null=True)
 
     class Meta:
         ordering = ['-created_at']
