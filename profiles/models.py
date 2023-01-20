@@ -15,7 +15,8 @@ class Profile(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=100, blank=True)
     bio = models.TextField(blank=True)
-    fan_or_club = models.CharField(choices=CLUB_OR_FAN_CHOICES, default=FAN,)
+    fan_or_club = models.CharField(
+        choices=CLUB_OR_FAN_CHOICES, max_length=10, default=FAN,)
     image = models.ImageField(
         upload_to='images/', default='../ball-flying_oncxm2')
     official = models.BooleanField(default=False)
