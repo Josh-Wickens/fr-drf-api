@@ -1,15 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
-from posts.models import Post
-from profiles.models import Profile
+from topics.models import Topics
 
 
-class Comment(models.Model):
+class TopicComment(models.Model):
     """
-    Comment model, related to User and Post
+    Topic Comment model, related to User and Topics
     """
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Topics, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     content = models.TextField(blank=False)

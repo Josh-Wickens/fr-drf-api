@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from .models import Comment
+from .models import TopicComment
 
 
-class CommentSerializer(serializers.ModelSerializer):
+class TopicCommentSerializer(serializers.ModelSerializer):
     """
-    Serializer for the Comment model
+    Serializer for the Topic Comment model
     Adds three extra fields when returning a list of Comment instances
     """
     owner = serializers.ReadOnlyField(source='owner.username')
@@ -19,7 +19,7 @@ class CommentSerializer(serializers.ModelSerializer):
         return request.user == obj.owner
 
     class Meta:
-        model = Comment
+        model = TopicComment
         fields = [
             'id', 'owner', 'is_owner', 'profile_id', 'profile_image',
             'post', 'created_at', 'updated_at', 'content', 'official',
@@ -27,9 +27,9 @@ class CommentSerializer(serializers.ModelSerializer):
         ]
 
 
-class CommentDetailSerializer(CommentSerializer):
+class TopicCommentDetailSerializer(TopicCommentSerializer):
     """
-    Serializer for the Comment model used in Detail view
+    Serializer for the TopicComment model used in Detail view
     Post is a read only field so that we dont have to set it on each update
     """
-    post = serializers.ReadOnlyField(source='post.id')
+    topic = serializers.ReadOnlyField(source='topic.id')

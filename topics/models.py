@@ -9,7 +9,6 @@ class Topics(models.Model):
     TRANSFERS = 'Transfers'
     FIXTURES = 'Fixtures'
     RESULTS = 'Results'
-    
     TOPIC_CHOICES = [
         (GENERAL, 'General'),
         (PLAYERS, 'Players'),
