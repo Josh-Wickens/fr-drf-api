@@ -1,7 +1,7 @@
 from rest_framework import generics, permissions
 from fr_drf_api.permissions import IsOwnerOrReadOnly
-from likes.models import Like, LikeTopic, LikeTopicComment
-from likes.serializers import LikeSerializer, LikeTopicSerializer, LikeTopicCommentSerializer
+from likes.models import Like, LikeTopic, LikeTopicComment, LikeComment
+from likes.serializers import LikeSerializer, LikeTopicSerializer, LikeTopicCommentSerializer, LikeCommentSerializer
 
 
 class LikeList(generics.ListCreateAPIView):
@@ -65,3 +65,24 @@ class LikeTopicCommentDetail(generics.RetrieveDestroyAPIView):
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = LikeTopicCommentSerializer
     queryset = LikeTopicComment.objects.all()
+
+
+class LikeCommentList(generics.ListCreateAPIView):
+    """
+    List likes or create a like if logged in.
+    """
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    serializer_class = LikeCommentSerializer
+    queryset = LikeComment.objects.all()
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+
+class LikeCommentDetail(generics.RetrieveDestroyAPIView):
+    """
+    Retrieve a like or delete it by id if you own it.
+    """
+    permission_classes = [IsOwnerOrReadOnly]
+    serializer_class = LikeCommentSerializer
+    queryset = LikeComment.objects.all()

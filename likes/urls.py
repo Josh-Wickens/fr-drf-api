@@ -8,4 +8,6 @@ urlpatterns = [
     path('likes-topic/<int:pk>/', views.LikeTopicDetail.as_view()),
     path('likes-topic-comment/', views.LikeTopicCommentList.as_view()),
     path('likes-topic-comment/<int:pk>/', views.LikeTopicCommentDetail.as_view()),
+    path('likes-comment/', views.LikeCommentList.as_view()),
+    path('likes-comment/<int:pk>/', views.LikeCommentDetail.as_view()),
 ]
