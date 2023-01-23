@@ -1,4 +1,5 @@
-from rest_framework import generics, permissions
+from django.db.models import Count
+from rest_framework import generics, permissions, filters
 from fr_drf_api.permissions import IsOwnerOrReadOnly
 from .models import Topics
 from .serializers import TopicsSerializer
@@ -11,7 +12,18 @@ class TopicsList(generics.ListCreateAPIView):
     """
     serializer_class = TopicsSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    queryset = Topics.objects.all()
+    queryset = Topics.objects.annotate(
+        likes_count=Count('likes', distinct=True),
+        comments_count=Count('topiccomment', distinct=True)
+    ).order_by('-created_at')
+    filter_backends = [
+        filters.OrderingFilter
+    ]
+    ordering_fields = [
+        'likes_count',
+        'comments_count',
+        'likes__created_at',
+    ]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -23,4 +35,7 @@ class TopicsDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     serializer_class = TopicsSerializer
     permission_classes = [IsOwnerOrReadOnly]
-    queryset = Topics.objects.all()
+    queryset = Topics.objects.annotate(
+        likes_count=Count('likes', distinct=True),
+        comments_count=Count('topiccomment', distinct=True)
+    ).order_by('-created_at')
