@@ -23,6 +23,16 @@ FIXED
 
 UNFXED
 
+___
+## **Technology and Languages** ##
+___
+
+- Python - Django Rest Framework
+- Cloudinary - Image Storage
+- Pillow
+
+
+
 
 
 
