@@ -33,7 +33,7 @@ class TopicCommentSerializer(serializers.ModelSerializer):
         model = TopicComment
         fields = [
             'id', 'owner', 'is_owner', 'profile_id', 'profile_image',
-            'created_at', 'updated_at', 'content', 'official',
+            'post', 'created_at', 'updated_at', 'content', 'official',
             'fan_or_club', 'like_id'
         ]
 

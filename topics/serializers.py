@@ -33,7 +33,7 @@ class TopicsSerializer(serializers.ModelSerializer):
         user = self.context['request'].user
         if user.is_authenticated:
             like = LikeTopic.objects.filter(
-                owner=user, post=obj
+                owner=user, topic=obj
             ).first()
             return like.id if like else None
         return None
