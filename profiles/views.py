@@ -21,7 +21,14 @@ class ProfileList(generics.ListAPIView):
     ).order_by('-created_at')
     serializer_class = ProfileSerializer
     filter_backends = [
-        filters.OrderingFilter
+        filters.OrderingFilter,
+        filters.SearchFilter,
+    ]
+    search_fields = [
+        'owner__username',
+        'name',
+        'fan_or_club',
+
     ]
     ordering_fields = [
         'posts_count',
@@ -32,6 +39,7 @@ class ProfileList(generics.ListAPIView):
         'comment_count',
         'topic_count',
         'topic_comment_count',
+        'official',
     ]
 
 
@@ -51,7 +59,8 @@ class ProfileDetail(generics.RetrieveUpdateAPIView):
     ).order_by('-created_at')
     serializer_class = ProfileSerializer
     filter_backends = [
-        filters.OrderingFilter
+        filters.OrderingFilter,
+        
     ]
     ordering_fields = [
         'posts_count',

@@ -17,7 +17,13 @@ class TopicsList(generics.ListCreateAPIView):
         comments_count=Count('topiccomment', distinct=True)
     ).order_by('-created_at')
     filter_backends = [
-        filters.OrderingFilter
+        filters.OrderingFilter,
+        filters.SearchFilter,
+    ]
+    search_fields = [
+        'owner__username',
+        'topic',
+        'owner__profile__fan_or_club',
     ]
     ordering_fields = [
         'likes_count',
