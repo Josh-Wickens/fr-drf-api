@@ -14,13 +14,13 @@ class Profile(models.Model):
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=100, blank=True)
-    bio = models.TextField(blank=True)
+    bio = models.TextField(max_length=500, default="This is my Bio", blank=True)
     fan_or_club = models.CharField(
         choices=CLUB_OR_FAN_CHOICES, max_length=10, default=FAN,)
     image = models.ImageField(
         upload_to='images/', default='../ball-flying_xiyzfz')
     official = models.BooleanField(default=False)
-    support = models.CharField(max_length=30, null=True)
+    support = models.CharField(max_length=30, default="Football", blank=True)
 
     class Meta:
         ordering = ['-created_at']
