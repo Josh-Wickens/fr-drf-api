@@ -21,7 +21,7 @@ class Topics(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     topic = models.CharField(
-        choices=TOPIC_CHOICES, max_length=20, default=GENERAL,)
+        choices=TOPIC_CHOICES, max_length=20)
     question = models.CharField(max_length=400, blank=False)
     image = models.ImageField(
         upload_to='images/', blank=True
