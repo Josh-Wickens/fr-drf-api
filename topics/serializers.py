@@ -47,6 +47,6 @@ class TopicsSerializer(serializers.ModelSerializer):
             'id', 'owner', 'is_owner', 'profile_id',
             'profile_image', 'created_at', 'updated_at',
             'question', 'image', 'official',
-            'fan_or_club', 'like_id', 'likes_count', 
-            'comments_count', 'topic'
+            'fan_or_club', 'like_id', 'likes_count',
+            'comments_count', 'topic', 'post'
         ]
