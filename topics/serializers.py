@@ -13,6 +13,7 @@ class TopicsSerializer(serializers.ModelSerializer):
     like_id = serializers.SerializerMethodField()
     likes_count = serializers.ReadOnlyField()
     comments_count = serializers.ReadOnlyField()
+    topic = serializers.ChoiceField(choices=Topics.TOPIC_CHOICES)
 
     def validate_image(self, value):
         if value.size > 2 * 1024 * 1024:
@@ -46,6 +47,6 @@ class TopicsSerializer(serializers.ModelSerializer):
             'id', 'owner', 'is_owner', 'profile_id',
             'profile_image', 'created_at', 'updated_at',
             'question', 'image', 'official',
-            'fan_or_club', 'like_id', 'likes_count',
+            'fan_or_club', 'like_id', 'likes_count', 
             'comments_count', 'topic'
         ]
