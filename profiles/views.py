@@ -61,7 +61,7 @@ class ProfileDetail(generics.RetrieveUpdateAPIView):
     serializer_class = ProfileSerializer
     filter_backends = [
         filters.OrderingFilter,
-        
+
     ]
     ordering_fields = [
         'posts_count',
