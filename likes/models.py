@@ -66,7 +66,7 @@ class LikeTopic(models.Model):
         unique_together = ['owner', 'post']
 
     def __str__(self):
-        return f'{self.owner} {self.topic_post}'
+        return f'{self.owner} {self.post}'
 
 
 class LikeTopicComment(models.Model):
