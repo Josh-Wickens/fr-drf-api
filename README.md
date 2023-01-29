@@ -8,6 +8,7 @@ Football Reaction is the perfect place for football fans to come together on one
 2. [Bugs](#Bugs)
 3. [Technology and Languages](#technology-and-languages)
 4. [Set up project](#set-up-project)
+5. [Deployment](#deployment)
 
 ___
 # Testing 
@@ -138,10 +139,10 @@ ___
     MEDIA_URL = '/media/'
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
     ```
-
+___
 # Deployment
-
-*** Setting up JSON Web Tokens ***
+___
+***Setting up JSON Web Tokens***
 
 1. Install JSON Web Token authentication by using the following command in the terminal:
     ```
@@ -240,6 +241,64 @@ ___
     ```
 18. Save all files, git add and git commit followed by git push to Github.
 
+___
+## Prepare API for deployment to Heroku
+___
+
+1. Create a views.py file inside fr_drf_api (project file name)
+
+2. Import the api_view  decorator and the Response class and set message that is shown once the web page has loaded:
+
+    ```
+    from rest_framework.decorators import api_view
+    from rest_framework.response import Response
+
+    @api_view()
+    def root_route(request):
+    return Response({
+        "message": "Welcome to Football Reactions API!"
+    })
+    ```
+
+3. Import to urls.py in main project file and add to the url patterns list:
+
+    ```
+    from .views import root_route
+    urlpatterns = [
+        path('', root_route),
+    ```
+
+4. Set up page pagination inside REST_FRAMEWORK In settings.py:
+
+    ```
+    REST_FRAMEWORK = {
+        'DEFAULT_AUTHENTICATION_CLASSES': [(
+            'rest_framework.authentication.SessionAuthentication'
+            if 'DEV' in os.environ
+            else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
+        )],
+        'DEFAULT_PAGINATION_CLASS':
+        'rest_framework.pagination.PageNumberPagination',
+        'PAGE_SIZE': 10,
+    }
+    ```
+
+5. Set the default renderer to JSON for the prodution environment in settings.py:
+
+    ```
+    if 'DEV' not in os.environ:
+        REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
+            'rest_framework.renderers.JSONRenderer',
+        ]
+    ```
+
+6. Set the date format to make it more human readable for created_on date in the settings.py file underneath PAGE_SIZE:
+
+    ```
+    'DATETIME_FORMAT': '%d %b %y',
+    ```
+
+7. Save all files, git add and git commit followed by git push to Github.
 
 
 
