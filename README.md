@@ -1,4 +1,4 @@
-# **Football Reaction Backend API**
+# **Football Reactions Backend API**
 
 ### [Click here to see deployed project](https://fr_drf_api.herokuapp.com/) 
 ___
