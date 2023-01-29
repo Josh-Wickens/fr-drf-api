@@ -3,7 +3,9 @@ from posts.models import Post
 from likes.models import Like
 
 
+# class taken for DRF_API walkthrough
 class PostSerializer(serializers.ModelSerializer):
+    '''Post serializer class'''
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')

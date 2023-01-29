@@ -50,6 +50,6 @@ class TopicCommentSerializer(serializers.ModelSerializer):
 class TopicCommentDetailSerializer(TopicCommentSerializer):
     """
     Serializer for the TopicComment model used in Detail view
-    Post is a read only field so that we dont have to set it on each update
+    post is a read only field so that we dont have to set it on each update
     """
     post = serializers.ReadOnlyField(source='post.id')

@@ -7,8 +7,7 @@ from .serializers import TopicsSerializer
 
 class TopicsList(generics.ListCreateAPIView):
     """
-    List posts or create a post if logged in
-    The perform_create method associates the post with the logged in user.
+    List Topics or create a topic post if logged in
     """
     serializer_class = TopicsSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -37,7 +36,7 @@ class TopicsList(generics.ListCreateAPIView):
 
 class TopicsDetail(generics.RetrieveUpdateDestroyAPIView):
     """
-    Retrieve a post and edit or delete it if you own it.
+    Retrieve a topic post and edit or delete it if you own it.
     """
     serializer_class = TopicsSerializer
     permission_classes = [IsOwnerOrReadOnly]

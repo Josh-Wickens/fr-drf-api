@@ -5,7 +5,9 @@ from topics.models import Topics
 from topic_comments.models import TopicComment
 
 
+# class taken from DRF-APi walkthrough with modifications
 class ProfileSerializer(serializers.ModelSerializer):
+    '''profile serializer class'''
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     following_id = serializers.SerializerMethodField()
@@ -17,6 +19,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     topic_comment_count = serializers.ReadOnlyField()
 
     def get_is_owner(self, obj):
+        ''' check user is owner '''
         request = self.context['request']
         return request.user == obj.owner
 
