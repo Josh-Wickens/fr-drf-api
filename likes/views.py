@@ -27,7 +27,7 @@ class LikeDetail(generics.RetrieveDestroyAPIView):
 
 class LikeTopicList(generics.ListCreateAPIView):
     """
-    List likes or create a like if logged in.
+    List topic likes or create a topic like if logged in.
     """
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = LikeTopicSerializer
@@ -39,7 +39,7 @@ class LikeTopicList(generics.ListCreateAPIView):
 
 class LikeTopicDetail(generics.RetrieveDestroyAPIView):
     """
-    Retrieve a like or delete it by id if you own it.
+    Retrieve a topic like or delete it by id if you own it.
     """
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = LikeTopicSerializer
@@ -48,7 +48,7 @@ class LikeTopicDetail(generics.RetrieveDestroyAPIView):
 
 class LikeTopicCommentList(generics.ListCreateAPIView):
     """
-    List likes or create a like if logged in.
+    List topic comment likes or create a like if logged in.
     """
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = LikeTopicCommentSerializer
@@ -60,7 +60,7 @@ class LikeTopicCommentList(generics.ListCreateAPIView):
 
 class LikeTopicCommentDetail(generics.RetrieveDestroyAPIView):
     """
-    Retrieve a like or delete it by id if you own it.
+    Retrieve a topic comment like or delete it by id if you own it.
     """
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = LikeTopicCommentSerializer
@@ -69,7 +69,7 @@ class LikeTopicCommentDetail(generics.RetrieveDestroyAPIView):
 
 class LikeCommentList(generics.ListCreateAPIView):
     """
-    List likes or create a like if logged in.
+    List comment likes or create a like if logged in.
     """
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = LikeCommentSerializer
@@ -81,7 +81,7 @@ class LikeCommentList(generics.ListCreateAPIView):
 
 class LikeCommentDetail(generics.RetrieveDestroyAPIView):
     """
-    Retrieve a like or delete it by id if you own it.
+    Retrieve a comment like or delete it by id if you own it.
     """
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = LikeCommentSerializer

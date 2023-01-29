@@ -12,7 +12,7 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=400, blank=False)
     image = models.ImageField(
-        upload_to='images/', default='../default_post_rgq6aq', blank=True
+        upload_to='images/', blank=True
     )
 
     class Meta:

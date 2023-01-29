@@ -21,7 +21,7 @@ class Like(models.Model):
 
     class Meta:
         ordering = ['-created_at']
-        unique_together = ['owner', 'post',]
+        unique_together = ['owner', 'post']
 
     def __str__(self):
         return f'{self.owner} {self.post}'
@@ -29,9 +29,8 @@ class Like(models.Model):
 
 class LikeComment(models.Model):
     """
-    Like model, related to 'owner' and 'post' or 'topic post.
-    'owner' is a User instance and 'post' or 'topic post is a Post instance.
-    'unique_together' makes sure a user can't like the same post twice.
+    Like model, related to 'owner' and 'comment'. 'owner' is a User instance and 'comment' is a Comment instance.
+    'unique_together' makes sure a user can't like the same comment twice.
     """
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.ForeignKey(
@@ -50,9 +49,9 @@ class LikeComment(models.Model):
 
 class LikeTopic(models.Model):
     """
-    Like model, related to 'owner' and 'post' or 'topic post.
-    'owner' is a User instance and 'post' or 'topic post is a Post instance.
-    'unique_together' makes sure a user can't like the same post twice.
+    Like model, related to 'owner' and 'post'.
+    'owner' is a User instance and 'post' is a Topic instance.
+    'unique_together' makes sure a user can't like the same topic post twice.
     """
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(
@@ -71,9 +70,9 @@ class LikeTopic(models.Model):
 
 class LikeTopicComment(models.Model):
     """
-    Like model, related to 'owner' and 'post' or 'topic post.
-    'owner' is a User instance and 'post' or 'topic post is a Post instance.
-    'unique_together' makes sure a user can't like the same post twice.
+    Like model, related to 'owner' and 'comment'.
+    'owner' is a User instance and 'comment' comment is a Comment instance.
+    'unique_together' makes sure a user can't like the same comment twice.
     """
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.ForeignKey(

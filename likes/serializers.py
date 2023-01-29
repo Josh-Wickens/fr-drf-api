@@ -25,7 +25,7 @@ class LikeSerializer(serializers.ModelSerializer):
 
 class LikeTopicSerializer(serializers.ModelSerializer):
     """
-    Serializer for the Like model
+    Serializer for the LikeTopic model
     The create method handles the unique constraint on 'owner' and 'post'
     """
     owner = serializers.ReadOnlyField(source='owner.username')
@@ -45,8 +45,8 @@ class LikeTopicSerializer(serializers.ModelSerializer):
 
 class LikeTopicCommentSerializer(serializers.ModelSerializer):
     """
-    Serializer for the Like model
-    The create method handles the unique constraint on 'owner' and 'post'
+    Serializer for the LikeTopicComment model
+    The create method handles the unique constraint on 'owner' and 'comment'
     """
     owner = serializers.ReadOnlyField(source='owner.username')
 
@@ -65,7 +65,7 @@ class LikeTopicCommentSerializer(serializers.ModelSerializer):
 
 class LikeCommentSerializer(serializers.ModelSerializer):
     """
-    Serializer for the Like model
+    Serializer for the LikeComment model
     The create method handles the unique constraint on 'owner' and 'post'
     """
     owner = serializers.ReadOnlyField(source='owner.username')

@@ -7,7 +7,6 @@ from likes.models import LikeTopicComment
 class TopicCommentSerializer(serializers.ModelSerializer):
     """
     Serializer for the Topic Comment model
-    Adds six extra fields when returning a list of Topic Comment instances
     """
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
