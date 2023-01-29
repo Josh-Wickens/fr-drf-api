@@ -1,6 +1,7 @@
 # **Football Reaction Backend API**
 
-# [Click here to see deployed project](https://fr_drf_api.herokuapp.com/) 
+### [Click here to see deployed project](https://fr_drf_api.herokuapp.com/) 
+___
 
 Football Reaction is the perfect place for football fans to come together on one platform and speak just about football. Football reaction gives users the chance to state if they are a fan or if they are a club. They can make posts or join in conversations regarding certain topics and communicate together and share opinions. This repository is the backend of Football Reaction using Django REST Framework for the API database.
 
@@ -12,7 +13,7 @@ Football Reaction is the perfect place for football fans to come together on one
 
 ___
 # Testing 
-___
+
 
 - My code was put through the codeinstitute validator as seen below this has passed through successfully. Only errors left were line too long error which was left as changing this would affect the readability of the code. 
 ![Validator Result](/static/validator-pass.png)
@@ -48,7 +49,7 @@ A non logged in user can only read data and can't create or edit.
 
 ___
 # Bugs 
-___
+
 
 FIXED
 
@@ -65,7 +66,6 @@ UNFXED
 
 ___
 # Technology and Languages
-___
 
 - Python - Django Rest Framework
 - Cloudinary - Image Storage
@@ -80,7 +80,6 @@ ___
 
 ___
 # Set up Project
-___
 
 ***STEPS TO BE TAKEN***
 
@@ -141,7 +140,7 @@ ___
     ```
 ___
 # Deployment
-___
+
 ***Setting up JSON Web Tokens***
 
 1. Install JSON Web Token authentication by using the following command in the terminal:
@@ -300,7 +299,285 @@ ___
 
 7. Save all files, git add and git commit followed by git push to Github.
 
+___
+## Heroku Deployment
+___
 
+1. Login to ElephantSQL, create a new instance - select tiny turtle plan (ignore the tags field), select your nearest data center and click review and create the instance. Select your new instance and go to the URL section and copy the database URL.
 
+Then Login to Heroku and on the dashboard select new - create new app. Give your app a name and create app to confirm.
 
+2. In the settings tab of your heroku app you have just created, reveal Config Vars and add DATABASE_URL with the value set to the databse URL from ELEPHANTSQL without the quotation marks.
 
+3. Go back to your Gitpod workspace and install dj_database_url and psycopg2 using the following code in the terminal:
+
+    ```
+    pip3 install dj_database_url==0.5.0 psycopg2
+    ```
+
+4. Under import os in the settings.py file add:
+
+    ```
+    import dj_database_url
+    ```
+
+5. In settings.py update the DATABASES section to allow for development to use the sqlite database and the deployed version, the ElephantSQL:
+
+    ```
+    if 'DEV' in os.environ:
+     DATABASES = {
+         'default': {
+             'ENGINE': 'django.db.backends.sqlite3',
+             'NAME': BASE_DIR / 'db.sqlite3',
+         }
+     }
+ else:
+     DATABASES = {
+         'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+     }
+    ```
+
+6. In your env.py file, add a new environment variable to Gitpod with the key set to DATABASE_URL, and the value to your ElephantSQL database URL:
+
+    ```
+    os.environ.setdefault("DATABASE_URL", "<your PostgreSQL URL here>")
+    ```
+
+    (Remember to add quotes as this needs to be a string.)
+
+7. Temporarily comment out the DEV environment variable in settings.py so that Gitpod can connect to your external database
+
+    ```
+    # os.environ['DEV'] = '1'
+    ```
+
+8. Migrate the database models to the new database
+
+    ```
+    python3 manage.py migrate
+    ```
+
+9. Create a superuser for the new database using the following terminal command and adding a username and password.
+
+    ```
+    python3 manage.py createsuperuser
+    ```
+
+10. Install Gunicorn library in your terminal:
+
+    ```
+    pip install gunicorn
+    ```
+
+11. Update the requirements.txt using the following code in your terminal:
+
+    ```
+    pip freeze --local > requirements.txt
+    ```
+
+12. Create a Procfile and insert the following two commands in the file:
+
+    ```
+     release: python manage.py makemigrations && python manage.py migrate
+ web: gunicorn drf_api.wsgi
+    ```
+
+13. In settings.py update the value of ALLOWED_HOSTS to include your heroku app url:
+    ```
+    ALLOWED_HOSTS = ['localhost', '<your_app_name>.herokuapp.com']
+    ```
+14. Add corsheaders to INSTALLED_APPS:
+
+    ```
+    INSTALLED_APPS = [
+    ...
+    'dj_rest_auth.registration',
+    'corsheaders',
+    ...
+ ]
+    ```
+
+15. In settings.py add corsheaders middleware to the TOP of the MIDDLEWARE:
+
+    ```
+    SITE_ID = 1
+    MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+     ...
+ ]
+    ```
+
+16. Under the MIDDLEWARE list, set the ALLOWED_ORIGINS for the network requests made to the server with the following code:
+
+    ```
+    if 'CLIENT_ORIGIN' in os.environ:
+     CORS_ALLOWED_ORIGINS = [
+         os.environ.get('CLIENT_ORIGIN')
+     ]
+    else:
+     CORS_ALLOWED_ORIGIN_REGEXES = [
+         r"^https://.*\.gitpod\.io$",
+     ]
+    CORS_ALLOW_CREDENTIALS = True
+    ```
+
+17. In settings.py set jwt auth samesite to none to ensure the cookies are not blocked
+
+    ```
+    JWT_AUTH_COOKIE = 'my-app-auth'
+    JWT_AUTH_REFRESH_COOKE = 'my-refresh-token'
+    JWT_AUTH_SAMESITE = 'None'
+    ```
+
+18. In settings.py replace the secret key value with the following code:
+
+    ```
+    SECRET_KEY = os.getenv('SECRET_KEY')
+    ```
+
+20. In env.py set your secret key to a random key (don't use the same one that has been published to GitHub in your commits)
+
+    ```
+    os.environ.setdefault("SECRET_KEY", "CreateANEWRandomValueHere")
+    ```
+
+21. Change DEBUG from True to Dev:
+
+    ```
+    DEBUG = 'DEV' in os.environ
+    ```
+
+22. Comment back DEV = 1 in env.py
+    ```
+    import os
+
+    os.environ['CLOUDINARY_URL'] = "cloudinary://..."
+    os.environ['SECRET_KEY'] = "Z7o..."
+    os.environ['DEV'] = '1'
+    os.environ['DATABASE_URL'] = "postgres://..."
+    ```
+
+23. Update the requirements.txt file using the following code in your terminal:
+
+    ```
+    pip freeze --local > requirements.txt
+    ```
+
+24. Save all files, git add and git commit followed by git push to Github.
+
+25. Go back to the settings tab of your Heroku app and add the SECRET_KEY and CLOUDINARY_URL keys with values copied from the env.py file.
+
+26. Open the deploy tab on the Heroku dashboard and under deployment method select connect to Github and select the your project repository.
+
+27. In the manual deploy section select deploy branch.
+
+28. Once built an open app button will appear, this is clicked to view the deployed app.
+
+## Fix for dj-rest-auth bug
+
+- There is a bug in dj-rest-auth that doesnt allow users to log out here is the solution:
+
+1. In fr_drf/views import JWT_AUTH from settings.py
+
+```
+from .settings import (
+    JWT_AUTH_COOKIE, JWT_AUTH_REFRESH_COOKIE, JWT_AUTH_SAMESITE,
+    JWT_AUTH_SECURE,
+```
+
+2. Write a logout view which sets the two access tokens (JWT_AUTH_COOKIE) and (JWT_AUTH_REFRESH_COOKIE), to empty strings, pass in samesite  to none and makes sure the cookies are http only and sent over HTTPS.
+
+```
+@api_view(['POST'])
+def logout_route(request):
+    response = Response()
+    response.set_cookie(
+        key=JWT_AUTH_COOKIE,
+        value='',
+        httponly=True,
+        expires='Thu, 01 Jan 1970 00:00:00 GMT',
+        max_age=0,
+        samesite=JWT_AUTH_SAMESITE,
+        secure=JWT_AUTH_SECURE,
+    )
+    response.set_cookie(
+        key=JWT_AUTH_REFRESH_COOKIE,
+        value='',
+        httponly=True,
+        expires='Thu, 01 Jan 1970 00:00:00 GMT',
+        max_age=0,
+        samesite=JWT_AUTH_SAMESITE,
+        secure=JWT_AUTH_SECURE,
+    )
+    return response
+```
+
+3. In the main urls.py file import the logout route
+
+```
+from .views import root_route, logout_route
+```
+
+4. Include it in the main url patterns list. The important thing to note here is that our logout_route has to be placed above the default dj-rest-auth urls, so that it is matched first.
+
+```
+path('dj-rest-auth/logout/', logout_route),
+```
+
+5. Save all files, git add and git commit followed by git push to Github.
+
+6. Return to Heroku and manually deploy the project again, by clicking deploy branch in the deploy tab.
+.
+## Settings for use with front end React app
+
+- When the front end React repository has been set up follow these steps to connect the back to the front:
+
+1. In settings.py add the heroku app to ALLOWED_HOSTS
+
+```
+ALLOWED_HOSTS = [
+    '....herokuapp.com'
+    'localhost',
+]
+```
+
+2. In Heroku deployed backend app go to settings and reveal config vars
+
+3. Add the new ALLOWED_HOST key with the deployed url(as added to ALLOWED_HOST)
+
+3. In settings.py replace the URL string with the new environment variable
+
+```
+ALLOWED_HOSTS = [
+    os.environ.get('ALLOWED_HOST'),
+    'localhost',
+]
+```
+
+4. Gitpod regularly changes its URL for your workspaces to make it more secure, to keep this working import the regular expression in settings.py
+
+```
+import re
+```
+
+5. Update the if/else statement with
+
+```
+if 'CLIENT_ORIGIN_DEV' in os.environ:
+    extracted_url = re.match(r'^.+-', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE).group(0)
+    CORS_ALLOWED_ORIGIN_REGEXES = [
+        rf"{extracted_url}(eu|us)\d+\w\.gitpod\.io$",
+    ]
+```
+6. Save all files, git add and git commit followed by git push to Github.
+
+7. In Heroku manually deploy the project again.
+
+# Credits
+
+- The DRF-API walkthrough project was used to help set up this project, modifications were made to customise parts of the backend including adding models, serializers and views to allow users to like, comment, follow, post about topics and set their profile details. 
+
+# Acknowledgements
+Thanks to Ger from Code Institute tutor support for his help with issues I faced during this project. 
+
+Special thanks to my partner for all her patience during this time. Couldn't have done it without her!
