@@ -83,7 +83,64 @@ ___
 
 ***STEPS TO BE TAKEN***
 
-1.
+1. Using Code Institutes full template, create a new repository, and open it in Gitpod.
+
+2. Install Django using the following command in the terminal:     
+    ```
+    pip3 install 'django<4'
+    ```
+
+3. start the project using the following command in the terminal: 
+    ```
+    django-admin startproject drf_api .
+    ```
+ (including the dot as this will start the project in the current directory)
+
+4. Install the Cloudinary library using the following command in the terminal: 
+    ```
+    pip install django-cloudinary-storage
+    ```
+
+5. Install the Pillow library using the following command in the terminal:
+    ``` 
+    pip install Pillow
+    ```
+
+6. In the settings.py file add the newly installed apps, the order is important
+    ```
+    INSTALLED_APPS = [
+        'django.contrib.admin',
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.messages',
+        'cloudinary_storage', 
+        'django.contrib.staticfiles',
+        'cloudinary',
+    ]
+    ```
+7. Create an env.py file in the top directory
+
+8. In the env.py file add the following for the cloudinary url:
+    ```
+    import os
+    os.environ["CLOUDINARY_URL"] = "cloudinary://INSERT YOUR CLOUDINARY API KEY HERE"
+    ```
+
+9. In the settings.py file set up cloudinary credentials, the media url and default file storage using the following code:
+    ```
+    import os
+    if os.path.exists('env.py'):
+        import env
+    CLOUDINARY_STORAGE = {
+        'CLOUDINARY_URL': os.environ.get('CLOUDINARY_URL')
+    }
+    MEDIA_URL = '/media/'
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    ```
+
+# Deployment
+
 
 
 
