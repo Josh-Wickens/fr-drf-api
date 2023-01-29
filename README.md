@@ -3,6 +3,11 @@
 ### [Click here to see deployed project](https://fr_drf_api.herokuapp.com/) 
 ___
 
+- Deployed API [link](https://football-reactions.herokuapp.com/)
+- Deployed Frontend [link](https://football-reactions-uk.herokuapp.com/)
+- API Backend [repository](https://github.com/Josh-Wickens/fr-drf-api)
+- API Frontend [repository](https://github.com/Josh-Wickens/football-reactions)
+
 Football Reaction is the perfect place for football fans to come together on one platform and speak just about football. Football reaction gives users the chance to state if they are a fan or if they are a club. They can make posts or join in conversations regarding certain topics and communicate together and share opinions. This repository is the backend of Football Reaction using Django REST Framework for the API database.
 
 1. [Testing](#Testing)
