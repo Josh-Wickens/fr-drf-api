@@ -9,7 +9,7 @@ ___
 - Frontend Repository [repository](https://github.com/Josh-Wickens/football-reactions)
  
 
-Football Reactions is the perfect place for football fans to come together on one platform and speak just about football. Football reaction gives users the chance to state if they are a fan or if they are a club. They can make posts or join in conversations regarding certain topics and communicate together and share opinions. This repository is the backend of Football Reactions using Django REST Framework for the API database.
+Football Reactions is the perfect place for football fans to come together on one platform and speak exclusively about football. Users can state whether they are a fan or a club, and then create posts or join in conversations regarding certain football topics. They can also communicate together and share their opinions through the like and comment functionality. This repository is the backend of Football Reactions using Django REST Framework for the API database.
 
 # Database Schema
 
@@ -25,33 +25,40 @@ ___
 # Testing 
 
 
-- My code was put through the codeinstitute validator as seen below this has passed through successfully. Only errors left were line too long error which was left as changing this would affect the readability of the code. 
+- My code was put through the codeinstitute validator. As seen below, this has passed through successfully. The only errors that remained were 'line too long' errors which were left to avoid affecting the readability of the code. 
 ![Validator Result](/static/validator-pass.png)
 
 **URLS**
 
-- I have tested all links to make sure all the urls are working. All urls working successfully.
+- I have tested all links to ensure all the urls are working as expected. All urls are working successfully.
 ![urls test](/static/test-api-urls.png)
 
 **CRUD TESTING**
 
 
-- A logged in user can create a profile, post, topic post, like a post, like a comment, like a topic post, like a topic comment.
-- A non logged in User can read all of the above, but can't create any of the above.
-- A Logged in User can edit their own profile, own post, topic post, like on a post, like on a comment, like on a topic post, like on a topic comment. They can't edit anyone else's data.
-- A non logged in user can't edit any data in the API.
-- A logged in user can delete their own post, topic post, like on a post, like on a comment, like on a topic post, like on a topic comment.
-- A non logged in User can't delete any data in the api.
+- An authenticated user can; create a profile, post, topic post, like a post, like a comment, like a topic post and like a topic comment.
+- An unauthenticated user can read all of the above, but can't create any of the above.
+- An authenticated user can edit; their own profile, own post, topic post, like on a post, like on a comment, like on a topic post and their like on a topic comment. They can't edit anyone else's data.
+- An unauthenticated user can't edit any data in the API.
+- An unauthenticated user can delete; their own post, topic post, like on a post, like on a comment, like on a topic post and like on a topic comment.
+- An unauthenticated user can't delete any data in the api.
 
-Examples shown below
+Examples shown below:
 
 User can read posts.
+
 ![CRUD Testing - Can read posts](/static/read-all-posts.png)
+
 User can edit own profile.
+
 ![CRUD Testing - Can edit own profile](/static/edit-profile.png)
+
 User can edit or delete their own post.
+
 ![CRUD Testing - Can edit or delete a topic post](/static/delete-or-edit-topic.png)
+
 A non logged in user can only read data and can't create or edit.
+
 ![CRUD Testing - A non logged in user can only read data and not edit](/static/no-edit.png)
 
 - Deleted Items do not show in listed data.
@@ -61,16 +68,17 @@ ___
 # Bugs 
 
 
-FIXED
+### FIXED
 
-- I had an bug when I created my like model and tried to create it so that you could like a post or post in topics. But it would end up liking a post in both at the same time without the option for one or the other. To solve this I created a model for each post and comment so that it would seperate them and provide ID's for all comments and posts from the profile.
+- I had a bug when I created my like model and tried to create it so that you could like a post or post in topics. But it would end up liking a post in both at the same time without the option for one or the other. To solve this I created a model for each post and comment so that it would seperate them and provide ID's for all comments and posts from the profile.
 
-- I had a long error when I tried to set up the query to count all the posts in topics. See below
+- I had a long error when I tried to set up the query to count all the posts in topics. See below:
+
 ![Long error in the terminal](/static/long-error.png)
-  After speaking to Tutor support me and Ger managed to find that my topic count was missing an 's' on the end of it so it was not recognising the field.
 
+  After discussing this with tutor support, Ger and I managed to find that my topic count was missing an 's' on the end of it, so it was not recognising the field.
 
-UNFXED
+### UNFIXED
 
 - None known
 
@@ -93,14 +101,14 @@ ___
 
 ***STEPS TO BE TAKEN***
 
-1. Using Code Institutes full template, create a new repository, and open it in Gitpod.
+1. Using Code Institute's full template, create a new repository, and open it in Gitpod.
 
 2. Install Django using the following command in the terminal:     
     ```
     pip3 install 'django<4'
     ```
 
-3. start the project using the following command in the terminal: 
+3. Start the project using the following command in the terminal: 
     ```
     django-admin startproject drf_api .
     ```
@@ -198,7 +206,7 @@ ___
     ``` 
     pip install djangorestframework-simplejwt
     ```
-10. In env.py set DEV to 1 this checka whether in development or production:
+10. In env.py set DEV to 1 this checks whether in development or production:
     ```
     os.environ['DEV'] = '1'
     ```
@@ -485,7 +493,7 @@ Then Login to Heroku and on the dashboard select new - create new app. Give your
 
 ## Fix for dj-rest-auth bug
 
-- There is a bug in dj-rest-auth that doesnt allow users to log out here is the solution:
+- There is a bug in dj-rest-auth that doesn't allow users to log out, here is the solution:
 
 1. In fr_drf/views import JWT_AUTH from settings.py
 
